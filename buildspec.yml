@@ -7,13 +7,18 @@ phases:
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
-      - $(aws ecr get-login-password --region ap-south-1) | docker login --username AWS --password-stdin <your-account-id>.dkr.ecr.ap-south-1.amazonaws.com
+      - $(aws ecr get-login-password --region us-east-1) | docker login --username AWS --password-stdin 211125484952.dkr.ecr.us-east-1.amazonaws.com
   build:
     commands:
       - echo Building the Docker image...
       - docker build -t spring-boot-app .
-      - docker tag spring-boot-app:latest <your-account-id>.dkr.ecr.ap-south-1.amazonaws.com/spring-boot-app:latest
+      - docker tag spring-boot-app:latest 211125484952.dkr.ecr.us-east-1.amazonaws.com/spring-boot-app:latest
   post_build:
     commands:
       - echo Pushing the image to ECR...
-      - docker push <your-account-id>.dkr.ecr.ap-south-1.amazonaws.com/spring-boot-app:latest
+      - docker push 211125484952.dkr.ecr.us-east-1.amazonaws.com/spring-boot-app
+      - echo Creating imagedefinitions.json file...
+      - printf '[{"name":"spring-boot-container","imageUri":"211125484952.dkr.ecr.us-east-1.amazonaws.com/spring-boot-app"}]' > imagedefinitions.json
+  artifacts:
+    files:
+      - imagedefinitions.json
