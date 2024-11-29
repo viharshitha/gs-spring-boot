@@ -18,7 +18,7 @@ phases:
       - echo Pushing the image to ECR...
       - docker push 471112878240.dkr.ecr.us-east-1.amazonaws.com/spring-boot-app
       - echo Creating imagedefinitions.json file...
-      - printf '[{"name":"spring-boot-container","imageUri":"471112878240.dkr.ecr.us-east-1.amazonaws.com/spring-boot-app"}]' > imagedefinitions.json
+      - printf '[{"name":"spring-boot-container","imageUri":"471112878240.dkr.ecr.us-east-1.amazonaws.com/spring-boot-app:latest"}]' > imagedefinitions.json
   artifacts:
     files:
       - imagedefinitions.json
